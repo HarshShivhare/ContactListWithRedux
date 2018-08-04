@@ -1,2 +1,0 @@
-# ContactListWithRedux
-Created with CodeSandbox
