@@ -14,3 +14,8 @@
 .text-align {
   text-align: left;
 }
+
+.cd-image {
+  float: left;
+  padding: 20px;
+}

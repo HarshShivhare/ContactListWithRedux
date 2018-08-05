@@ -1,4 +1,5 @@
 import React from "react";
+import { loadContact, selectedContact } from "./action";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import ContactSearchBox from "./contactSearchBox.jsx";
@@ -16,11 +17,11 @@ class Contact extends React.Component {
     return (
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={3}>
+          <Grid item xs={3} md={3}>
             <ContactSearchBox />
             <ContactList />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9} md={9}>
             <ContactDetails />
           </Grid>
         </Grid>

@@ -1,8 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
@@ -12,38 +12,68 @@ const styles = theme => ({
 });
 
 class ContactDetails extends React.Component {
-  render() {
+  renderContactDetails() {
+    const selectedContact = this.props.selectedData;
+
     const { classes } = this.props;
-    return (
-      <div className="margin-top">
-        <Card className={(classes.card, "padding-cd", "margin-cd")}>
-          <CardMedia
-            className={classes.cover}
-            image="/static/images/cards/live-from-space.jpg"
-            title="Live from space album cover"
-          />
-          <div className={classes.details}>
-            <CardContent className={(classes.content, "text-align")}>
-              <Typography variant="headline">Harsh D.Shivhare</Typography>
-              <Typography variant="subheading" color="textSecondary">
-                Job titel - Zensar
-              </Typography>
-              <Typography variant="subheading" color="textSecondary">
-                Email: harsh.shivhare@zensar.com
-              </Typography>
-              <Typography variant="subheading" color="textSecondary">
-                Phone: 7418529630
-              </Typography>
-              <Typography variant="subheading" color="textSecondary">
-                Address: 104, Zensar Technology, Marwah house, off saki-vihar
-                road, andheri east, 400072.
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
-      </div>
-    );
+    if (
+      selectedContact &&
+      !(
+        Object.keys(selectedContact).length === 0 &&
+        selectedContact.constructor === Object
+      )
+    ) {
+      return (
+        <div className="margin-top">
+          <Card className={(classes.card, "padding-cd", "margin-cd")}>
+            <img
+              className="cd-image"
+              src={selectedContact.general.avatar}
+              alt=""
+            />
+            <div className={classes.details}>
+              <CardContent className={(classes.content, "text-align")}>
+                <Typography variant="headline">
+                  {selectedContact.general.firstName +
+                    " " +
+                    selectedContact.general.lastName}
+                </Typography>
+                <Typography variant="subheading" color="textSecondary">
+                  {selectedContact.job.title +
+                    " - " +
+                    selectedContact.job.company}
+                </Typography>
+                <Typography variant="subheading" color="textSecondary">
+                  Email: {selectedContact.contact.email}
+                </Typography>
+                <Typography variant="subheading" color="textSecondary">
+                  Phone: {selectedContact.contact.phone}
+                </Typography>
+                <Typography variant="subheading" color="textSecondary">
+                  {selectedContact.address.street +
+                    ", " +
+                    selectedContact.address.city +
+                    ", " +
+                    selectedContact.address.country +
+                    " " +
+                    selectedContact.address.zipCode}
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+  render() {
+    return <React.Fragment>{this.renderContactDetails()}</React.Fragment>;
   }
 }
+function mapStateToProps(state) {
+  return { selectedData: state.selectedData };
+}
 
-export default withStyles(styles)(ContactDetails);
+const conatctDetailsWithStyle = withStyles(styles)(ContactDetails);
+export default connect(mapStateToProps)(conatctDetailsWithStyle);
