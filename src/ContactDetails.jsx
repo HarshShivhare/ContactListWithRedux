@@ -39,11 +39,16 @@ class ContactDetails extends React.Component {
                     selectedContact.general.lastName}
                 </Typography>
                 <Typography variant="subheading" color="textSecondary">
+                  Job Titel:{" "}
                   {selectedContact.job.title +
                     " - " +
                     selectedContact.job.company}
                 </Typography>
-                <Typography variant="subheading" color="textSecondary">
+                <Typography
+                  className="cd-email"
+                  variant="subheading"
+                  color="textSecondary"
+                >
                   Email: {selectedContact.contact.email}
                 </Typography>
                 <Typography variant="subheading" color="textSecondary">
